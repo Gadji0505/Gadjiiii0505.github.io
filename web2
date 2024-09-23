@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <random>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+int main() {
+    setlocale(LC_ALL, "ru");
+    int size;
+    cout << "Введите размерность матрицы и массива: ";
+    cin >> size;
+
+    int** matrix = new int* [size];
+    vector <int> numbers(size);
+    vector <int> output(size, 0);
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<double> dis(1.0, 10.0);
+
+    for (int i = 0; i < size; i++)
+    {
+        matrix[i] = new int[size];
+        for (int j = 0; j < size; j++)
+            matrix[i][j] = dis(gen);
+    }
+
+    for (int i = 0; i < size; i++)
+        numbers[i] = dis(gen);
+
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    for (int i = 0; i < size; i++)
+    {
+        output[i] = 0;
+        for (int j = 0; j < size; j++)
+            output[i] += numbers[j] * matrix[i][j];
+    }
+
+    auto end_time = std::chrono::high_resolution_clock::now();
+    chrono::duration<double, std::milli> execution_time = end_time - start_time;
+
+    for (int i = 0; i < size; i++)
+        cout << output[i] << " ";
+    cout << endl;
+    cout << "Время выполнения: " << execution_time.count() << " мс";
+    return 0;
+}
