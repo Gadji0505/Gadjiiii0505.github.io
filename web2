@@ -214,8 +214,9 @@ html'''
 <footer>
     <div class="container">
         <p>© 2023 Название сайта. Все права защищены.</p>
-    </div>'''
+    </div>
 </footer>
 
 </body>
 </html>
+'''
